@@ -9,9 +9,9 @@
 코드를 한 줄이라도 짜기 전, 아래 파일을 순서대로 읽는다.
 
 ```
-1. skills/개발/운영-프로토콜.md   ← 모든 규칙의 근간
-2. skills/개발/코드-아키텍트.md   ← 아키텍처 패턴
-3. skills/개발/엣지케이스-헌터.md ← 놓치기 쉬운 케이스
+1. skills/engineering/operating-protocol.md   ← 모든 규칙의 근간
+2. skills/engineering/code-architect.md   ← 아키텍처 패턴
+3. skills/engineering/edge-case-hunter.md ← 놓치기 쉬운 케이스
 4. CLAUDE.md                      ← ForPleasure 홈페이지 오버라이드 규칙
 5. {기능명}/계획.md               ← 구현 체크리스트 (있으면)
 ```

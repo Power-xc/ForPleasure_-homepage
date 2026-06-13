@@ -1,0 +1,106 @@
+<!-- 파일: skills/security/infrastructure-defense.md | 스킬: Infrastructure Defense | 부서: Security | ID: infra-sec -->
+
+# Infrastructure Defense Skill
+
+> **담당:** Security
+> **Tier:** 2 (Claude Sonnet)
+> **Skill ID:** `infra-sec`
+
+## Purpose
+
+Vercel/Next.js 배포 시 브라우저 수준에서 공격을 차단하는 보안 헤더(CSP) 및 과도한 요청(Brute Force, DDoS 등)을 막는 Rate Limiting을 점검하고 적용한다. 인프라 설정 오류로 인한 보안 홀을 방지하기 위함.
+
+## Trigger
+
+- `@sec infra` — 전체 인프라 계층 보안 점검 (Vercel 설정, Next.js 헤더 등)
+- `@sec csp` — Content Security Policy(CSP) 설정 최적화 및 정책 위반 체크
+- `@sec ratelimit {path}` — 특정 엔드포인트에 대한 Rate Limit 적용 제안 및 구현
+- `@sec monitor` — 로그 기반의 악의적인 트래픽 징후(예: 401, 403 에러 급증) 분석
+
+## Input
+
+```json
+{
+  "target": "infra | csp | ratelimit | monitor",
+  "path": "rate limit을 적용하거나 모니터링할 경로 (선택)"
+}
+```
+
+## Output
+
+```json
+{
+  "verdict": "PASS | FAIL",
+  "hard_gates": [
+    { "id": "G1", "item": "CSP 헤더 존재", "status": "PASS | FAIL", "detail": "" }
+  ],
+  "soft_findings": [
+    { "id": "S1", "item": "HSTS 설정 여부", "severity": "🟡 High | 🟢 Low", "action": "" }
+  ],
+  "summary": "Hard Gate X/6 통과. Soft Finding N건."
+}
+```
+
+## Process
+
+```
+1. next.config.js 및 vercel.json에서 HTTP 보안 헤더(CSP, X-Frame-Options 등) 스캔
+2. API 엔드포인트의 Rate Limiting 적용 여부 분석 (특히 인증, 결제 라우트)
+3. 로그 분석을 위한 모니터링 셋업 플랜 제안
+4. 취약점 발견 시, 최신 보안 사례(OWASP) 기반의 설정 코드(Before/After) 제안
+5. 각 Hard Gate 항목별 PASS/FAIL 판정 후 최종 verdict 결정
+```
+
+## 성공 기준 (Success Criteria)
+
+### HARD GATE — 하나라도 FAIL 시 배포 중단
+
+| ID | 점검 항목 | 통과 조건 |
+|----|----------|----------|
+| G1 | CSP 헤더 존재 | 응답 헤더에 `Content-Security-Policy` 포함 |
+| G2 | `unsafe-eval` 미사용 | CSP 값에 `unsafe-eval` 없음 |
+| G3 | `unsafe-inline` 제한 | `unsafe-inline` 없거나 nonce/hash로 대체됨 |
+| G4 | 클릭재킹 방어 | `X-Frame-Options: DENY` 또는 CSP `frame-ancestors 'none'` 설정 |
+| G5 | 인증 엔드포인트 Rate Limit | `/api/auth/*` 등에서 초과 요청 시 `429` 응답 확인 |
+| G6 | 웹훅/시크릿 하드코딩 없음 | 코드 내 웹훅 URL, API 키 리터럴 없음 (환경변수로만 처리) |
+
+### SOFT FINDING — 발견 시 보고, 다음 스프린트 처리
+
+| ID | 점검 항목 | 권장 조치 |
+|----|----------|----------|
+| S1 | HSTS 설정 | `Strict-Transport-Security` 헤더 추가 |
+| S2 | `X-Content-Type-Options` 설정 | `nosniff` 값 추가 |
+| S3 | `Referrer-Policy` 설정 | `strict-origin-when-cross-origin` 권장 |
+| S4 | 결제 엔드포인트 Rate Limit | 인증 외 결제 라우트에도 Rate Limit 적용 |
+| S5 | 알림 파이프라인 연결 | 비정상 트래픽 감지 시 Slack/Discord 알림 |
+
+### 최종 판정 규칙
+
+```
+Hard Gate 전부 PASS  → verdict: "PASS" → 배포 가능
+Hard Gate 1개 이상 FAIL → verdict: "FAIL" → 즉시 중단, 수정 후 재점검
+Soft Finding → 배포 블록 없음, soft_findings 배열에 severity 태그 포함
+```
+
+## Constraints
+
+- CSP 설정 시 무분별한 `unsafe-inline` 및 `unsafe-eval` 사용을 제한하도록 엄격히 권고 `[SEC]`
+- Rate Limiting은 Upstash Redis 등 서버리스 환경에서 검증된 스택을 우선 제안 `[PROD]`
+- 알림 시스템 구축 시 환경 변수에 웹훅 URL 누출 주의 `[SEC]`
+
+## Registry Metadata
+
+```json
+{
+  "skill_id": "infra-sec",
+  "skill_name": "Infrastructure Defense Skill",
+  "version": "1.0.0",
+  "department": "Security",
+  "owner": "Security",
+  "tier": "2",
+  "trigger_type": "manual | pre-deploy",
+  "dependencies": ["sys-sec"],
+  "estimated_cost_per_run_usd": 0.05,
+  "last_updated": "2026-04-11"
+}
+```

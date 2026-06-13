@@ -1,11 +1,11 @@
-# IPAI 실행 스킬 표준 템플릿
+# IPAI Skill Template
 
 > 새 실행 스킬은 이 구조를 그대로 복사한 뒤 필요한 내용만 채운다. 실행 스킬 26종은 이 템플릿을 기준으로 점진 정리한다.
 
 ```markdown
 <!-- 파일: skills/{부서}/{파일명}.md | 스킬: {English Name} | 부서: {부서명} | ID: {skill_id} -->
 
-# {한글 스킬명} ({English Skill Name})
+# {English Skill Name}
 
 > **담당:** {부서명}
 > **Tier:** {1 | 2} ({모델})
