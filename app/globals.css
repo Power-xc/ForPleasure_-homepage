@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* [PROD] 전역 기본 — 부드러운 스크롤과 한글 가독성 기본값 */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white text-primary font-sans antialiased;
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 (가독성) */
+  }
+}

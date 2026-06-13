@@ -1,0 +1,4 @@
+# 앱 빌드에 불필요한 원본/문서 디렉토리는 업로드 제외 (public/images만 배포에 사용)
+images/
+skills/
+landing/
