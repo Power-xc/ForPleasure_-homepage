@@ -2,48 +2,35 @@
 import type { ReactNode } from "react";
 import { Section, SectionHeading } from "@/shared/ui";
 
-// [PROD] 플랫 라인 아이콘 — 외부 아이콘 라이브러리 의존 없이 인라인 SVG로.
-// stroke=currentColor 라 부모 text 색을 그대로 따른다(토큰 색 사용).
-const svgProps = {
-  width: 28,
-  height: 28,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 1.6,
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-} as const;
+// [PROD] 플랫(솔리드 채움) 아이콘 — 외부 라이브러리 없이 인라인 SVG, fill=currentColor로 토큰 색 사용.
+// 장식용 배경/그림자 없이 글리프만 둬서 최대한 플랫하게.
+const svgProps = { width: 32, height: 32, viewBox: "0 0 24 24", fill: "currentColor" } as const;
 
-// 답장 없음/대화 끊김 — 말풍선
+// 답장 없음/대화 끊김 — 솔리드 말풍선
 function ChatIcon() {
   return (
     <svg {...svgProps} aria-hidden="true">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      <rect x="2" y="4" width="20" height="13" rx="3.5" />
+      <path d="M8 15.5 L8 21 L13.5 15.5 Z" />
     </svg>
   );
 }
 
-// 거절·반복되는 시도 — 반복 화살표
+// 거절·반복되는 시도 — 솔리드 반복(교차) 화살표
 function RepeatIcon() {
   return (
     <svg {...svgProps} aria-hidden="true">
-      <path d="m17 2 4 4-4 4" />
-      <path d="M3 11v-1a4 4 0 0 1 4-4h14" />
-      <path d="m7 22-4-4 4-4" />
-      <path d="M21 13v1a4 4 0 0 1-4 4H3" />
+      <path d="M7 3 L11 8 H8 V15 H6 V8 H3 Z" />
+      <path d="M17 21 L13 16 H16 V9 H18 V16 H21 Z" />
     </svg>
   );
 }
 
-// 일정 조율 — 캘린더
+// 일정 조율 — 솔리드 캘린더 (본문은 evenodd로 비워 플랫하게)
 function CalendarIcon() {
   return (
-    <svg {...svgProps} aria-hidden="true">
-      <rect width="18" height="18" x="3" y="4" rx="2" />
-      <path d="M3 10h18" />
-      <path d="M8 2v4" />
-      <path d="M16 2v4" />
+    <svg {...svgProps} aria-hidden="true" fillRule="evenodd" clipRule="evenodd">
+      <path d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1V3a1 1 0 0 1 1-1zM4 10h16v9H4z" />
     </svg>
   );
 }
@@ -65,11 +52,8 @@ export function ProblemSection() {
       <div className="mt-12 grid gap-5 md:grid-cols-3">
         {PAINS.map((p) => (
           <div key={p.text} className="rounded-2xl border border-primary/10 bg-white p-6 text-center">
-            {/* 아이콘 — 소프트 퍼플 배경의 둥근 사각형 안에 플랫 라인 아이콘 */}
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-soft text-accent">
-              {p.icon}
-            </div>
-            <p className="mt-5 text-base leading-relaxed text-primary">{p.text}</p>
+            <div className="mx-auto flex justify-center text-accent">{p.icon}</div>
+            <p className="mt-4 text-base leading-relaxed text-primary">{p.text}</p>
           </div>
         ))}
       </div>
