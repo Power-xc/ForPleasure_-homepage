@@ -1,0 +1,25 @@
+# 의존성
+node_modules/
+.pnp
+.pnp.js
+
+# 빌드 산출물
+.next/
+out/
+dist/
+build/
+
+# 환경변수 (절대 커밋 금지) [SEC]
+.env
+.env.local
+.env*.local
+
+# 로그
+*.log
+npm-debug.log*
+
+# OS / 에디터
+.DS_Store
+.idea/
+.vscode/
+*.swp

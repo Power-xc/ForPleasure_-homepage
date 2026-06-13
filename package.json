@@ -1,0 +1,13 @@
+{
+  "name": "forpleasure-homepage",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ForPleasure 데이팅 앱 공식 홈페이지 (IPAI 스킬셋·규칙 기반)",
+  "scripts": {
+    "skills:audit": "node scripts/audit-skills.mjs"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}
