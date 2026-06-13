@@ -13,23 +13,24 @@
   }
 }
 
-/* [PROD] 콘텐츠 전환용 페이드업 — 탭 전환 시 상세 패널에 적용 */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
+/* [PROD] 스크롤 등장 — 화면에 들어오기 전엔 살짝 아래에서 투명, 들어오면 페이드업 */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  will-change: opacity, transform;
+}
+.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+/* 모션 최소화 선호 사용자는 애니메이션 없이 바로 표시 (접근성) */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
     opacity: 1;
     transform: none;
-  }
-}
-.anim-fadeup {
-  animation: fadeUp 0.28s ease both;
-}
-/* 모션 최소화 선호 사용자는 애니메이션 제거 (접근성) */
-@media (prefers-reduced-motion: reduce) {
-  .anim-fadeup {
-    animation: none;
+    transition: none;
   }
 }
