@@ -8,7 +8,7 @@ export function TrustSafety() {
     <Section id="trust">
       <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
         <div className="mx-auto w-full max-w-[280px] md:order-2">
-          <PhoneShot src="/images/matching-waiting.png" alt="잇다 매니저가 안내하는 매칭 대기 화면" />
+          <PhoneShot src="/homepage/images/matching-waiting.png" alt="잇다 매니저가 안내하는 매칭 대기 화면" />
         </div>
         <div className="md:order-1">
           <SectionHeading
