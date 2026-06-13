@@ -12,3 +12,24 @@
     word-break: keep-all; /* 한글 단어 단위 줄바꿈 (가독성) */
   }
 }
+
+/* [PROD] 콘텐츠 전환용 페이드업 — 탭 전환 시 상세 패널에 적용 */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.anim-fadeup {
+  animation: fadeUp 0.28s ease both;
+}
+/* 모션 최소화 선호 사용자는 애니메이션 제거 (접근성) */
+@media (prefers-reduced-motion: reduce) {
+  .anim-fadeup {
+    animation: none;
+  }
+}
