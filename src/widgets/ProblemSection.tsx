@@ -16,29 +16,44 @@ function ChatIcon() {
   );
 }
 
-// 거절·반복되는 시도 — 솔리드 반복(교차) 화살표
-function RepeatIcon() {
+// 거절·반복되는 시도 — 솔리드 깨진 하트 (안쪽 균열은 카드 배경색 흰색으로 knockout)
+function HeartBrokenIcon() {
   return (
     <svg {...svgProps} aria-hidden="true">
-      <path d="M7 3 L11 8 H8 V15 H6 V8 H3 Z" />
-      <path d="M17 21 L13 16 H16 V9 H18 V16 H21 Z" />
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      <path
+        d="M12.6 4.6 L10.3 9 L13 11 L10.8 15.6"
+        fill="none"
+        stroke="#fff"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 
-// 일정 조율 — 솔리드 캘린더 (본문은 evenodd로 비워 플랫하게)
-function CalendarIcon() {
+// 일정 조율 — 솔리드 시계 (시침/분침은 카드 배경색 흰색으로 knockout)
+function ClockIcon() {
   return (
-    <svg {...svgProps} aria-hidden="true" fillRule="evenodd" clipRule="evenodd">
-      <path d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1V3a1 1 0 0 1 1-1zM4 10h16v9H4z" />
+    <svg {...svgProps} aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path
+        d="M12 7.5 V12 L15 13.8"
+        fill="none"
+        stroke="#fff"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 
 const PAINS: { icon: ReactNode; text: string }[] = [
   { icon: <ChatIcon />, text: "매칭돼도 답장이 없거나 그대로 사라지는 경험" },
-  { icon: <RepeatIcon />, text: "거절과 반복되는 시도로 쌓이는 피로" },
-  { icon: <CalendarIcon />, text: "연락처 교환·일정 조율까지 가야 하는 번거로움" },
+  { icon: <HeartBrokenIcon />, text: "거절과 반복되는 시도로 쌓이는 피로" },
+  { icon: <ClockIcon />, text: "연락처 교환·일정 조율까지 가야 하는 번거로움" },
 ];
 
 export function ProblemSection() {
