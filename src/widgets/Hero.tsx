@@ -33,7 +33,7 @@ export function Hero() {
 
         {/* 대표 비주얼 — 스플래시 화면 */}
         <div className="mx-auto w-full max-w-xs">
-          <PhoneShot src="/homepage/images/hero-splash.png" alt="잇다 앱 시작 화면" priority sizes="(max-width: 768px) 80vw, 320px" />
+          <PhoneShot src="/images/hero-splash.png" alt="잇다 앱 시작 화면" priority sizes="(max-width: 768px) 80vw, 320px" />
         </div>
       </Container>
     </div>
